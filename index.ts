@@ -12,7 +12,7 @@ function rSlider1410(wh:string, min: number, max: number, step: number, val: num
     let element = $("<input type='range' max='"+max+"' step='"+step+"' value='"+val+"' min='"+min+"'>").appendTo($(".mySliders"));
     let model = new rsModel(element);
     let view: rsView;
-    if(vertical==true){
+    if(vertical===true){
         view = new rsView(vertical, pluginId++, element, $('<div style="height:'+wh+';width:20px;margin:30px"/>').appendTo($(".mySliders")));
     }else{
         view = new rsView(vertical, pluginId++, element, $('<div style="padding:20px;max-width:'+wh+';margin-bottom:30px"/>').appendTo($(".mySliders")));
