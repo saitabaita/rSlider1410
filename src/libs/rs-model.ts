@@ -1,10 +1,18 @@
-class rsModel{
+interface IModel{
+    min:    number;
+    max:    number;
+    value:  number;
+    value2: number;
+    step:   number;
+}
+class rsModel implements IModel {
     min: number;
     max: number;
     value: number;
     value2: number;
     step: number;
     constructor($element: JQuery<any>, two: boolean) {
+        //$element - <input type='range'
         this.min    = this.tryParseFloat($element[0].getAttribute('min'), 0);
         this.max    = this.tryParseFloat($element[0].getAttribute('max'), 100);
         if(two){

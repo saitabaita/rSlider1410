@@ -19,6 +19,7 @@ class rsFill{
     public set width(val: number) {
         this._width = val;
     }
+    //если два бегунка, устанавливает размер филла
     setPosition2(pos1: number, pos2: number, vertical: boolean){
         if(vertical){
             this.$fill[0].style['bottom'] = (pos1) + 'px';
@@ -28,6 +29,7 @@ class rsFill{
             this.$fill[0].style['width'] = (pos2-pos1) + 'px';
         }
     }
+    //если бегунок один, устанавливает размер филла
     setPosition(pos: number, vertical: boolean){
         if(vertical){
             this.$fill[0].style['height'] = (pos) + 'px';
@@ -94,25 +96,24 @@ class rsView{
     element: JQuery<HTMLElement>;
     two: boolean;
     constructor($two: boolean, $vertical: boolean, $id: number, $element: JQuery<any>, rootObject: JQuery<HTMLElement>){
-        this.identifier = 'mySlider-'+$id;
-        //input[range]
-        this.element = $element;
+        this.identifier = 'mySlider-'+$id; // id слайдера
+        this.element = $element; //input[range]
         this.$window  = $(window);
         this.$document  = $(document);
-        this.rootObject = rootObject;
-        this.$fillObject = new rsFill(this.fillClass);
+        this.rootObject = rootObject; //элемент, в который вставляются слайдеры
+        this.$fillObject = new rsFill(this.fillClass); //объект заполнителя
         this.$fill      = this.$fillObject.$fill;
-        this.$controlObject = new rsControl(this.handleClass, true, $vertical);
-        this.$controlObject2 = new rsControl(this.handleClass2, true, $vertical);
+        this.$controlObject = new rsControl(this.handleClass, true, $vertical); //1 бегунок
+        this.$controlObject2 = new rsControl(this.handleClass2, true, $vertical);//2 бегунок
         this.$control   = this.$controlObject.$control;
         this.$control2   = this.$controlObject2.$control;
         this.two = $two;
         if(!$two){
             this.$control2.css("display","none");
         }
-
         if($vertical) {
             this.vertical = true;
+            // HTML элемент слайдера с 2-мя бегунками
             this.$range = $('<div class="' + this.rangeClass + ' '+this.rangeClass+'-vertical'+'" id="' + this.identifier + '" />').insertAfter(this.element).prepend(this.$fill, this.$control, this.$control2).appendTo(this.rootObject);
             this.grabPos = this.$control[0]['offsetHeight'];
         }else{
@@ -120,6 +121,7 @@ class rsView{
             this.grabPos = this.$control[0]['offsetWidth'];
         }
     };
+    // устанавливает позицию бегунка
     setPositionView(pos: number){
         if(this.$controlObject.active){
             this.$controlObject.setPosition(pos, this.vertical);
@@ -127,10 +129,10 @@ class rsView{
                 this.$fillObject.setPosition2(this.$controlObject.getPosition(), this.$controlObject2.getPosition()+this.grabPos/2, this.vertical);
         }else{
             this.$controlObject2.setPosition(pos, this.vertical);
-            //console.log(this.$controlObject2.getPosition());
             (this.two) ? this.$fillObject.setPosition2(this.$controlObject.getPosition(), this.$controlObject2.getPosition()+this.grabPos/2, this.vertical): null;
         }
     }
+    //возвращает координаты мыши
     getPositionView(e: any){
         let pageCoordinate:number = 0;
         let rangePos: number;
@@ -144,5 +146,20 @@ class rsView{
             return pageCoordinate - rangePos;
         }
     }
+    setActiveControl(num: number){
+        if(num>2 || num<1) return;
+        if(num===1){
+            this.$controlObject.active=true;
+            this.$controlObject2.active=false;
+            this.$control.css('z-index', 100);
+            this.$control2.css('z-index', 1);
+        }else{
+            this.$controlObject2.active=true;
+            this.$controlObject.active=false;
+            this.$control.css('z-index', 1);
+            this.$control2.css('z-index', 100);
+        }
+    }
+
 };
 export {rsView};

@@ -1,4 +1,5 @@
 'use strict'
+
 import * as $ from 'jquery';
 import './src/index.css'
 import './src/libs/rsSlider1410.css'
@@ -21,22 +22,11 @@ function rSlider1410(wh:string, min: number, max: number, step: number, val: num
 }
 
 $(document).ready(function(){
-    //rSlider1410('200px', 0, 1000, 10, 100, true);
     rSlider1410('300px', 5, 400, 5, 100, true, false);
     rSlider1410('800px', 10, 1000, 10, 300, false, true);
+    rSlider1410('800px', 0, 1000, 1, 300, false, false);
     //rSlider1410('600px', 0, 1000, 10, 300, false);
-    //rSlider1410(400, 10, 1000, 10, 100, false);
-    //rSlider1410(200, 10, 1000, 10, 100, false);
 
-/*    let element = $("<input type='range' max='1000' step='10' value='500' min='0'>").appendTo($(".mySliders"));
-    let model = new rsModel(element, pluginId++);
-    let view = new rsView(model, $('<div style="width:400px;margin-bottom:30px"/>').appendTo($(".mySliders")));
-    let controller = new rsController(model, view);
-
-/*    let element2 = $("<input type='range' max='1000' step='10' value='300' min='10'>").appendTo($(".mySliders"));
-    let model2 = new rsModel(element2, pluginId++);
-    let view2 = new rsView(model2, $('<div/>').appendTo($(".mySliders")));
-    let controller2 = new rsController(model2, view2);*/
 });
 
 
