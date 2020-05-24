@@ -9,8 +9,9 @@
     position: relative;
 }
 .rSlider1410__fill {
-    background: #8fcad4;
-    position: absolute;
+/*  background: #8fcad4;*/
+  background: #287489;
+  position: absolute;
 }
 .rSlider1410-horizontal {
     height: 10px;
@@ -31,7 +32,8 @@
   width: 100%;
 }
 .rSlider1410__control, .rSlider1410__control2 {
-    background: wheat;
+    /*background: wheat;*/
+    background: #F1E05A;
     border: 2px solid #ccc;
     cursor: pointer;
     display: inline-block;

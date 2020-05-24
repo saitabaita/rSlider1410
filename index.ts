@@ -10,7 +10,7 @@ let pluginId: number = 0;
 
 function rSlider1410(wh:string, min: number, max: number, step: number, val: number, vertical: boolean, two: boolean){
     let element = $("<input type='range' max='"+max+"' step='"+step+"' value='"+val+"' min='"+min+"'>").appendTo($(".mySliders"));
-    let model = new rsModel(element);
+    let model = new rsModel(element, two);
     let view: rsView;
     if(vertical===true){
         view = new rsView(two, vertical, pluginId++, element, $('<div style="height:'+wh+';width:20px;margin:30px"/>').appendTo($(".mySliders")));
@@ -22,7 +22,7 @@ function rSlider1410(wh:string, min: number, max: number, step: number, val: num
 
 $(document).ready(function(){
     //rSlider1410('200px', 0, 1000, 10, 100, true);
-    rSlider1410('300px', 5, 400, 5, 300, true, false);
+    rSlider1410('300px', 5, 400, 5, 100, true, false);
     rSlider1410('800px', 10, 1000, 10, 300, false, true);
     //rSlider1410('600px', 0, 1000, 10, 300, false);
     //rSlider1410(400, 10, 1000, 10, 100, false);

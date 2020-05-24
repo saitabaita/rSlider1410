@@ -35,6 +35,7 @@ class rsController{
         //Установим начальную позицию 1 контрола
         this.setActiveControl_1(true);
         pos = this.getPositionFromValue(model.value);
+        //this.view.$control.find('input:text').val(model.value+'');    
         this.view.setPositionView(pos);
         value = this.getValueFromPosition(this.inrange(pos, 0, this.model.max));
         this.view.$control.find('input:text').val(value+''); 
