@@ -1,4 +1,6 @@
-import * as $ from 'jquery';
+//import * as $ from 'jquery';
+const isBrowser = document.location !== undefined;
+const $ = isBrowser ? require('jquery'): require('jquery')(window);
 import { rsModel } from './rs-model';
 import { rsView } from './rs-view';
 
@@ -125,7 +127,7 @@ class rsController{
         let value: number = this.getValueFromPosition(this.inrange(pos, 0, this.maxHandlePos));
         let newPos: number = this.getPositionFromValue(value);
         this.view.setPositionView(newPos);
-        this.setOutValue(value);
+        this.view.setOutValue(value);
         this.view.$control.find('input:text').val(value+'');    
     }
     controlMove(e: any){
@@ -152,7 +154,7 @@ class rsController{
             this.view.$control.find('input:text').val(value+'');    
         }
         // меняем input[range]
-        this.setOutValue(value);
+        this.view.setOutValue(value);
     }
     controlEnd(e: any){
         e.preventDefault();
@@ -162,12 +164,6 @@ class rsController{
         this.view.$controlObject.active=false;        
         this.view.$controlObject2.active=false;        
         this.view.$range.removeClass('rSlider1410--active');
-    }
-    setOutValue(value: number){
-        // вызовем событие инпут c источником this.view.identifier
-        this.view.element
-            .val(value)
-            .trigger('input', { origin: this.view.identifier });
     }
 }
 export {rsController};

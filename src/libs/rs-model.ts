@@ -8,8 +8,8 @@ interface IModel{
 class rsModel implements IModel {
     min: number;
     max: number;
-    value: number;
-    value2: number;
+    value: number = 0;
+    value2: number = 0;
     step: number;
     constructor($element: JQuery<any>, two: boolean) {
         //$element - <input type='range'

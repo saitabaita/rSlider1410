@@ -1,3 +1,9 @@
+//mport * as $ from 'jquery';
+//const isBrowser = document.location.href !== 'about:blank';
+
+const isBrowser = document.location !== undefined;
+const $ = isBrowser ? require('jquery'): require('jquery')(window);
+
 class rsFill{
     $fill: JQuery<HTMLElement>;
     private _height: number;
@@ -39,8 +45,8 @@ class rsFill{
     }
 }
 class rsControl{
-    left: number;
-    bottom: number;
+    left: number = undefined;
+    bottom: number = undefined;
     led: boolean;
     vertical: boolean;
     $control: JQuery<HTMLElement>;
@@ -53,13 +59,13 @@ class rsControl{
         else
             this.$control = $('<div class="' + controlClass + '" >');
     }
-    getPosition(){
+    getPosition(): number{
         if(this.vertical)  
             return this.bottom 
         else
             return this.left;
     };
-    setPosition(pos: number, vertical: boolean){
+    setPosition(pos: number, vertical: boolean): void {
         if(vertical){
             this.$control[0].style['bottom'] = (pos) + 'px';
             this.bottom = pos;
@@ -88,10 +94,6 @@ class rsView{
     handleClass2: string = 'rSlider1410__control2';
     vertical: boolean = false;
     grabPos: number;
-    DIMENSION: any;
-    DIRECTION: string;
-    DIRECTION_STYLE: string;
-    COORDINATE: string;
     identifier: string;
     element: JQuery<HTMLElement>;
     two: boolean;
@@ -160,6 +162,13 @@ class rsView{
             this.$control2.css('z-index', 100);
         }
     }
+    setOutValue(value: number){
+        // вызовем событие инпут c источником this.view.identifier
+        this.element
+            .val(value)
+            .trigger('input', { origin: this.identifier });
+    }
+
 
 };
 export {rsView};

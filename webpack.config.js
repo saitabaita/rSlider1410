@@ -7,15 +7,15 @@ const webpack = require('webpack');
 //const PAGES_DIR = path.join(__dirname, 'src')
 
 module.exports = {
-    entry: {
-        app: "./index"
-    },
-    output: {
-        filename: "[name].js",
-        path: path.join(__dirname, 'dist'),
-        publicPath: ''
-    },
-    optimization: {
+  entry: {
+      app: "./index"
+  },
+  output: {
+      filename: "[name].js",
+      path: path.join(__dirname, 'dist'),
+      publicPath: ''
+  },
+  optimization: {
         splitChunks: {
           cacheGroups: {
             vendor: {
@@ -88,40 +88,40 @@ module.exports = {
             }
         ]
     },
-    devtool: "source-map",
-    devServer: {
-        overlay: {
-          warnings: true,
-          errors: true
-        },
-        port: 8083,
-    },
-    resolve: {
-        //где искать модули
-        modules: [
-            "node_modules",
-            path.resolve(__dirname, "src")
-        ],
-        extensions: [".js", ".ts", ".css"],
-    },
-    plugins: [
-      new MiniCssExtractPlugin({
-        filename: `[name].css`
-      }),
-      new CopyWebpackPlugin({
-        patterns: [
-          { from: 'node_modules/jquery/dist/jquery.min.js', to: 'jquery.min.js' },
-          //{ from: 'src/libs/rsSlider1410.css', to: 'rsSlider1410.css' }
-        ]
-      }),
-      new webpack.ProvidePlugin({
-        "$":"jquery",
-        "jQuery":"jquery",
-        "window.jQuery":"jquery"
-      }),
-      new HtmlWebpackPlugin({
-          template: 'src/index.html'
-        }
-      )
-    ]
+  devtool: "source-map",
+  devServer: {
+      overlay: {
+        warnings: true,
+        errors: true
+      },
+      port: 8083,
+  },
+  resolve: {
+      //где искать модули
+      modules: [
+          "node_modules",
+          path.resolve(__dirname, "src")
+      ],
+      extensions: [".js", ".ts", ".css"],
+  },
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: `[name].css`
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: 'node_modules/jquery/dist/jquery.min.js', to: 'jquery.min.js' },
+        //{ from: 'src/libs/rsSlider1410.css', to: 'rsSlider1410.css' }
+      ]
+    }),
+    new webpack.ProvidePlugin({
+      "$":"jquery",
+      "jQuery":"jquery",
+      "window.jQuery":"jquery"
+    }),
+    new HtmlWebpackPlugin({
+        template: 'src/index.html'
+      }
+    )
+  ]
 }
