@@ -7,11 +7,11 @@ import { rsView } from './rs-view';
 class rsController{
     private model: rsModel;
     private view: rsView;
-    startEvent: string = 'mousedown';
-    moveEvent: string= 'mousemove';
-    endEvent: string = 'mouseup';
-    controlClass: string = 'rSlider1410__control';
-    controlClass2: string = 'rSlider1410__control2';
+    private startEvent: string = 'mousedown';
+    private moveEvent: string= 'mousemove';
+    private endEvent: string = 'mouseup';
+    private controlClass: string = 'rSlider1410__control';
+    private controlClass2: string = 'rSlider1410__control2';
     maxHandlePos: number; 
     minHandlePos: number; 
     constructor(model: rsModel, view: rsView){
