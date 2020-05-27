@@ -1,7 +1,7 @@
 # rSlider1410
 Слайдер тестового задания (Александр Егоров)
 
-Ссылка на страницу со слайдерами: https://saitabaita.github.io/rSlider1410/dist/
+Ссылка на страницу со слайдерами(развернут на github): https://saitabaita.github.io/rSlider1410/dist/
 
 <b>Описание архитектуры.</b>
 
