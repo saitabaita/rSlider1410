@@ -9,16 +9,16 @@ import { rsController } from './src/libs/rs-controller';
 
 let pluginId: number = 0;
 
-function rSlider1410(wh:string, min: number, max: number, step: number, val: number, vertical: boolean, two: boolean){
-    let element = $("<input type='range' max='"+max+"' step='"+step+"' value='"+val+"' min='"+min+"'>").appendTo($(".mySliders"));
-    let model = new rsModel(element, two);
+function rSlider1410(wh:string, min: number=0, max: number=1000, step: number=10, val: number=200, isVertical: boolean, isTwo: boolean){
+    let element: JQuery<HTMLElement> = $("<input type='range' max='"+max+"' step='"+step+"' value='"+val+"' min='"+min+"'>").appendTo($(".mySliders"));
+    let model: rsModel = new rsModel(element, isTwo);
     let view: rsView;
-    if(vertical===true){
-        view = new rsView(two, vertical, pluginId++, element, $('<div style="height:'+wh+';width:20px;margin:30px"/>').appendTo($(".mySliders")));
+    if(isVertical===true){
+        view = new rsView(isTwo, isVertical, pluginId++, element, $('<div style="height:'+wh+';width:20px;margin:30px"/>').appendTo($(".mySliders")));
     }else{
-        view = new rsView(two, vertical, pluginId++, element, $('<div style="padding:20px;max-width:'+wh+';margin-bottom:30px"/>').appendTo($(".mySliders")));
+        view = new rsView(isTwo, isVertical, pluginId++, element, $('<div style="padding:20px;max-width:'+wh+';margin-bottom:30px"/>').appendTo($(".mySliders")));
     }
-    let controller = new rsController(model, view);
+    let controller: rsController = new rsController(model, view);
 }
 
 $(document).ready(function(){

@@ -1,6 +1,6 @@
-//import * as $ from 'jquery';
 const isBrowser = document.location !== undefined;
 const $ = isBrowser ? require('jquery'): require('jquery')(window);
+
 import { rsModel } from './rs-model';
 import { rsView } from './rs-view';
 
@@ -12,8 +12,8 @@ class rsController{
     private endEvent: string = 'mouseup';
     private controlClass: string = 'rSlider1410__control';
     private controlClass2: string = 'rSlider1410__control2';
-    maxHandlePos: number; 
-    minHandlePos: number; 
+    private maxHandlePos: number; 
+    private minHandlePos: number; 
     constructor(model: rsModel, view: rsView){
         this.model = model;
         this.view = view;
@@ -25,9 +25,10 @@ class rsController{
         this.moveEvent  = this.moveEvent + '.' + view.identifier; // добавляем пространство имен для слайдера (id слайдера)
         this.endEvent   = this.endEvent + '.' + view.identifier;
         this.startEvent = this.startEvent + '.' + view.identifier;
+        // включаем mousedown
         this.view.$range.on(this.startEvent, this.controlDown);
 
-        if(this.view.vertical){
+        if(this.view.isVertical){
             this.maxHandlePos = this.view.$fillObject.height - this.view.grabPos;
         }else{
             let str: string = this.view.$range.css('width');
@@ -43,7 +44,7 @@ class rsController{
         this.view.$control.find('input:text').val(value+''); 
 
         //Установим начальную позицию 2 контрола
-        if(this.view.two){
+        if(this.view.isTwo){
             this.view.setActiveControl(2);
             pos = this.getPositionFromValue(model.value2);
             this.view.setPositionView(pos);
@@ -52,8 +53,8 @@ class rsController{
         }
         // подключаем события для <input type='range' и изменения размеров окна
         let _this = this;
-        this.view.element.on('change.' + view.identifier, function(e, data){
-            if(!_this.view.two){
+        this.view.$element.on('change.' + view.identifier, function(e, data){
+            if(!_this.view.isTwo){
                 let val: any = $(e.target).val();
                 pos = _this.getPositionFromValue(val);
                 _this.view.setActiveControl(1);            
@@ -61,15 +62,17 @@ class rsController{
                 _this.view.$control.find('input:text').val(val+'');    
            }
         });
+        // событие изменения размеров окна
         this.view.$window.on('resize.' + view.identifier, function(e){
-            if(_this.view.rootObject.parent().width() > _this.view.rootObject.outerWidth(true)){
+            if(_this.view.$rootObject.parent().width() > _this.view.$rootObject.outerWidth(true)){
                 return;
             }
-            if(!_this.view.vertical)
+            if(!_this.view.isVertical)
                 setTimeout(function() { _this.updateSlider() }, 500);
         });
     };
-    updateSlider(){
+    // функция работает при изменении размеров окна браузера
+    private updateSlider(){
         this.maxHandlePos = this.view.$range[0]['offsetWidth'] - this.view.grabPos; 
 
         this.view.setActiveControl(1);
@@ -98,14 +101,16 @@ class rsController{
     };
     controlDown(e: any){
         e.preventDefault();
+        // подписываемся еще на 2 события
+        //let _this = $(event.currentTarget);
         this.view.$range.on(this.moveEvent, this.controlMove);
         this.view.$document.on(this.endEvent, this.controlEnd);
-        
+        // делаем класс с событием активным (может пригодится)
         this.view.$range.addClass('rSlider1410--active');
 
         //Если нажали на бегунок позиция не меняется переходим к controlmove
         if ((' ' + e.target.className + ' ').replace(/[\n\t]/g, ' ').indexOf(this.controlClass2) > -1){
-            if(this.view.vertical)
+            if(this.view.isVertical)
                 this.minHandlePos = this.view.$controlObject.bottom;
             else
                 this.minHandlePos = this.view.$controlObject.left;
@@ -118,7 +123,7 @@ class rsController{
             this.view.setActiveControl(1);
             return;
         }
-        if(this.view.two){ 
+        if(this.view.isTwo){ 
             return;
         }
         this.view.setActiveControl(1);
@@ -134,7 +139,7 @@ class rsController{
         e.preventDefault();
         let pos: number = this.view.getPositionView(e)-this.view.grabPos/2;
         // фильтруем перемещение мыши
-        if(this.view.vertical){
+        if(this.view.isVertical){
             if(this.view.$controlObject2.active && pos < this.view.$controlObject.bottom) return;
             if(this.view.$controlObject.active && pos > this.view.$controlObject2.bottom) return;
         }else{
