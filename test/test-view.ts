@@ -17,8 +17,8 @@ describe('Object VIEW Test', () => {
     let elementSlider: JQuery<HTMLElement> = $("<div style='padding:20px;max-width:400px;margin-bottom:30px'/>").appendTo($(".mySliders"));
     let view: rsView = new rsView(false, false, 0, elementRange, elementSlider);
     it('Checks if the VIEW works with one runner by default', () => {
-        expect_test(view).to.have.property('two', false);
-        expect_test(view).to.have.property('vertical', false);
+        expect_test(view).to.have.property('isTwo', false);
+        expect_test(view).to.have.property('isVertical', false);
         expect_test(view).to.have.property('identifier', 'mySlider-0');
         expect_test(view.$controlObject).to.exist;
         expect_test(view.$controlObject2).to.exist;
@@ -29,7 +29,7 @@ describe('Object VIEW Test', () => {
     });
     it('Checks rsControl', () => {
         expect_test(view.$controlObject).to.have.property('active');
-        expect_test(view.$controlObject).to.have.property('vertical');
+        expect_test(view.$controlObject).to.have.property('isVertical');
         expect_test(view.$controlObject).to.have.property('led');
         expect_test(view.$controlObject).to.have.property('$control');
         expect_test(view.$controlObject).to.have.property('bottom');
