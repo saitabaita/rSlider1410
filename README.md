@@ -27,6 +27,6 @@ vertical: boolean,
 
 два слайдера: boolean
 
-<b>UML диаграмма:</b>
+# UML диаграмма:
 
 <img src="rSlider1410.jpg"/>
