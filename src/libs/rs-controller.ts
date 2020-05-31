@@ -55,7 +55,7 @@ class rsController{
         let _this = this;
         this.view.$element.on('change.' + view.identifier, function(e, data){
             if(!_this.view.isTwo){
-                let val: any = $(e.target).val();
+                let val: number = $(e.target).val();
                 pos = _this.getPositionFromValue(val);
                 _this.view.setActiveControl(1);            
                 _this.view.setPositionView(pos);
@@ -99,13 +99,13 @@ class rsController{
         if (pos > max) { return max; }
         return pos;
     };
-    controlDown(e: any){
+    controlDown(e: JQuery.TriggeredEvent){   // TriggeredEvent для target
         e.preventDefault();
         // подписываемся еще на 2 события
         //let _this = $(event.currentTarget);
         this.view.$range.on(this.moveEvent, this.controlMove);
         this.view.$document.on(this.endEvent, this.controlEnd);
-        // делаем класс с событием активным (может пригодится)
+        // делаем класс с событием активным 
         this.view.$range.addClass('rSlider1410--active');
 
         //Если нажали на бегунок позиция не меняется переходим к controlmove
@@ -135,7 +135,7 @@ class rsController{
         this.view.setOutValue(value);
         this.view.$control.find('input:text').val(value+'');    
     }
-    controlMove(e: any){
+    controlMove(e: JQuery.Event){
         e.preventDefault();
         let pos: number = this.view.getPositionView(e)-this.view.grabPos/2;
         // фильтруем перемещение мыши
@@ -161,10 +161,10 @@ class rsController{
         // меняем input[range]
         this.view.setOutValue(value);
     }
-    controlEnd(e: any){
+    controlEnd(e: JQuery.Event){
         e.preventDefault();
-        // удаляем обработчики
-        this.view.$range.off(this.moveEvent, this.controlMove);
+        // удаляем обработчики (down не отключаем)
+        this.view.$range.off('mousemove', this.controlMove);
         this.view.$range.off(this.endEvent, this.controlEnd);
         this.view.$controlObject.active=false;        
         this.view.$controlObject2.active=false;        

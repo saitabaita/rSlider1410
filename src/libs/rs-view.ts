@@ -73,7 +73,6 @@ class rsControl{
         }        
     }
 }
-//const constants: {[index: string]:any} = {};   
 class rsView{
     $window: JQuery<Window>;
     $document: JQuery<HTMLDocument>;
@@ -94,7 +93,7 @@ class rsView{
     identifier: string;
     $element: JQuery<HTMLElement>;
     isTwo: boolean;
-    constructor($two: boolean, $vertical: boolean, $id: number, $element: JQuery<any>, rootObject: JQuery<HTMLElement>){
+    constructor($two: boolean, $vertical: boolean, $id: number, $element: JQuery<HTMLElement>, rootObject: JQuery<HTMLElement>){
         this.identifier = 'mySlider-'+$id; // id слайдера
         this.$element = $element; //input[range]
         this.$window  = $(window);
@@ -132,16 +131,18 @@ class rsView{
         }
     }
     //возвращает координаты мыши
-    getPositionView(e: any){
+    getPositionView(e: JQuery.Event){
         let pageCoordinate:number = 0;
         let rangePos: number;
         if(this.isVertical){
             rangePos = this.$range[0].getBoundingClientRect()['bottom'];
-            pageCoordinate = e.originalEvent['clientY'];
+//            pageCoordinate = e.originalEvent['clientY'];
+            pageCoordinate = e.clientY;
             return rangePos - pageCoordinate;
         }else{
             rangePos = this.$range[0].getBoundingClientRect()['left'];
-            pageCoordinate = e.originalEvent['clientX'];
+//            pageCoordinate = e.originalEvent['clientX'];
+            pageCoordinate = e.clientX;
             return pageCoordinate - rangePos;
         }
     }

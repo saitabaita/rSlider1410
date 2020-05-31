@@ -11,7 +11,7 @@ class rsModel implements IModel {
     value: number = 0;
     value2: number = 0;
     step: number;
-    constructor($element: JQuery<any>, two: boolean) {
+    constructor($element: JQuery<HTMLElement>, two: boolean) {
         //$element - <input type='range'
         this.min    = this.tryParseFloat($element[0].getAttribute('min'), 0);
         this.max    = this.tryParseFloat($element[0].getAttribute('max'), 100);
@@ -19,7 +19,7 @@ class rsModel implements IModel {
             this.value  = this.min + (this.max-this.min)/4;
             this.value2 = this.min + ((this.max-this.min)*3)/4;
         }else{
-            this.value  = this.tryParseFloat($element[0].value, Math.round(this.min + (this.max-this.min)/2));
+            this.value  = this.tryParseFloat($element[0].nodeValue, Math.round(this.min + (this.max-this.min)/2));
         }
         this.step   = this.tryParseFloat($element[0].getAttribute('step'), 1);
     };
