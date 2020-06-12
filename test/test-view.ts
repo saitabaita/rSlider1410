@@ -8,7 +8,7 @@ global.document = document;
 let $ = require('jquery')(window);
 
 import { rsView } from "../src/libs/rs-view";
-import { rsModel } from "../src/libs/rs-model";
+//import rsModel from "../src/libs/rs-model";
 
 let expect_test  = require('chai').expect;
 

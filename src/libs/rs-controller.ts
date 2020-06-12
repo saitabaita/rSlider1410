@@ -1,7 +1,7 @@
 const isBrowser = document.location !== undefined;
 const $ = isBrowser ? require('jquery'): require('jquery')(window);
 
-import { rsModel } from './rs-model';
+import rsModel from './rs-model';
 import { rsView } from './rs-view';
 
 class rsController{
@@ -102,14 +102,14 @@ class rsController{
     controlDown(e: JQuery.TriggeredEvent){   // TriggeredEvent для target
         e.preventDefault();
         // подписываемся еще на 2 события
-        //let _this = $(event.currentTarget);
-        this.view.$range.on(this.moveEvent, this.controlMove);
+//        this.view.$range.on(this.moveEvent, this.controlMove);
         this.view.$document.on(this.endEvent, this.controlEnd);
         // делаем класс с событием активным 
         this.view.$range.addClass('rSlider1410--active');
 
-        //Если нажали на бегунок позиция не меняется переходим к controlmove
+        //Если нажали на бегунок, позиция не меняется переходим к controlmove
         if ((' ' + e.target.className + ' ').replace(/[\n\t]/g, ' ').indexOf(this.controlClass2) > -1){
+            this.view.$range.on(this.moveEvent, this.controlMove);
             if(this.view.isVertical)
                 this.minHandlePos = this.view.$controlObject.bottom;
             else
@@ -119,6 +119,7 @@ class rsController{
         }
         //нажимаем на первый бегунок и покидаем событие
         if ((' ' + e.target.className + ' ').replace(/[\n\t]/g, ' ').indexOf(this.controlClass) > -1){
+            this.view.$range.on(this.moveEvent, this.controlMove);
             this.minHandlePos = 0;
             this.view.setActiveControl(1);
             return;
@@ -126,6 +127,7 @@ class rsController{
         if(this.view.isTwo){ 
             return;
         }
+        this.view.$range.on(this.moveEvent, this.controlMove);
         this.view.setActiveControl(1);
         
         let pos: number = this.view.getPositionView(e) - this.view.grabPos/2;;
@@ -138,6 +140,7 @@ class rsController{
     controlMove(e: JQuery.Event){
         e.preventDefault();
         let pos: number = this.view.getPositionView(e)-this.view.grabPos/2;
+        //console.log(pos);
         // фильтруем перемещение мыши
         if(this.view.isVertical){
             if(this.view.$controlObject2.active && pos < this.view.$controlObject.bottom) return;

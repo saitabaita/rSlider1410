@@ -5,7 +5,7 @@ interface IModel{
     value2: number;
     step:   number;
 }
-class rsModel implements IModel {
+export default class rsModel implements IModel {
     min: number;
     max: number;
     value: number = 0;
@@ -27,5 +27,4 @@ class rsModel implements IModel {
         var value = parseFloat(str);
         return Number.isNaN(value) ? defaultValue : value;
     }
-};
-export {rsModel};
+}

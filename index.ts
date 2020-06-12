@@ -3,7 +3,7 @@
 import * as $ from 'jquery';
 import './src/index.css'
 import './src/libs/rsSlider1410.css'
-import { rsModel } from './src/libs/rs-model';
+import rsModel from './src/libs/rs-model';
 import { rsView } from './src/libs/rs-view';
 import { rsController } from './src/libs/rs-controller';
 

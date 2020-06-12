@@ -4,7 +4,7 @@ const { JSDOM } = jsdom;
 const dom = new JSDOM('<!DOCTYPE html><html><body><div class="mySliders"></div></body></html>');
 let $ = require("jquery")(dom.window); 
 
-import { rsModel } from "../src/libs/rs-model";
+import rsModel from "../src/libs/rs-model";
 let expect_test  = require('chai').expect;
 //let request = require('request');
 //const fModel = require('../src/libs/rs-model');
